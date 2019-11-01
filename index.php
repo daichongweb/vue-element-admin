@@ -47,16 +47,20 @@ if (!$conn) {
 // exit;
 $data = $_POST;
 if ($data) {
-    $action = $_POST['action'];
-    $page = $_POST['page'] ?? 1;
+    $action = $data['action'];
+    $page = $data['page'] ?? 1;
     $page_size = 10;
     $limit = ($page - 1) * $page_size;
 
     if ($action == 'list') {
-        $where = 1;
-        $result = $conn->query("select * from user where '{$where}' limit $limit,$page_size");
+        $name = $data['name'];
+        $where = "1=1";
+        if ($name) {
+            $where .= " and name like '%$name%'";
+        }
+        $result = $conn->query("select * from user where {$where} limit $limit,$page_size");
         while ($data[] = $result->fetch_assoc()) { }
-        $total = $conn->query("select count(*) as num from user where '{$where}'")->fetch_assoc()['num'];
+        $total = $conn->query("select count(*) as num from user where {$where}")->fetch_assoc()['num'];
 
         $data = array_values($data);
         foreach ($data as $key => $v) {
@@ -64,11 +68,37 @@ if ($data) {
                 unset($data[$key]);
             }
         }
-        
+
         ajaxs(200, 'success', [
-            'total' => (int)$total,
+            'total' => (int) $total,
             'data' => array_values($data)
         ]);
+    } else if ($action == 'delUser') {
+        $id = $data['id'];
+        $result = $conn->query("delete from user where id = {$id}");
+        $code = 0;
+        $message = 'error';
+        if ($result) {
+            $code = 200;
+            $message = 'success';
+        }
+        ajaxs($code, $message);
+    } else if ($action == 'createUser') {
+        $data = $data['data'];
+        $name = $data['name'];
+        $city = $data['city'];
+        $age = $data['age'];
+        $home = $data['home'];
+        $date = $data['date'];
+        $address = $data['address'];
+        $result = $conn->query("insert into `user`(`name`,`city`,`age`,`home`,`date`,`address`) value('{$name}','{$city}','{$age}','{$home}','{$date}','{$address}')");
+        $code = 0;
+        $message = 'error';
+        if ($result) {
+            $code = 200;
+            $message = 'success';
+        }
+        ajaxs($code, $message);
     }
 } else {
     ajaxs(0, 'error');
