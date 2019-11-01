@@ -30,7 +30,6 @@
       <el-table-column prop="address" label="地址"></el-table-column>
       <el-table-column label="操作" width="180">
         <template>
-          <el-button size="mini" @click="edit()">编辑</el-button>
           <el-button size="mini" type="danger" @click="del()">删除</el-button>
         </template>
       </el-table-column>
@@ -38,41 +37,13 @@
     <!-- 表格 -->
 
     <!-- 分页 -->
-    <el-pagination background layout="prev, pager, next" :total="total"></el-pagination>
+    <el-pagination
+      background
+      layout="prev, pager, next"
+      :total="total"
+      @current-change="changePage"
+    ></el-pagination>
     <!-- 分页 -->
-
-    <!-- 弹框 -->
-    <el-dialog title="修改信息" :visible.sync="dialogFormVisible">
-      <el-form :model="form">
-        <el-form-item label="姓名" :label-width="formLabelWidth">
-          <el-input v-model="form.name" autocomplete="off" style="width:50%;"></el-input>
-        </el-form-item>
-        <el-form-item label="年龄" :label-width="formLabelWidth">
-          <el-input-number v-model="form.age" controls-position="right" :min="1" :max="10"></el-input-number>
-        </el-form-item>
-        <el-form-item label="日期" :label-width="formLabelWidth">
-          <el-date-picker v-model="form.date" type="date" placeholder="选择日期"></el-date-picker>
-        </el-form-item>
-        <el-form-item label="城市" :label-width="formLabelWidth">
-          <el-select v-model="form.city" placeholder="请选择">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="地址" :label-width="formLabelWidth">
-          <el-input type="textarea" v-model="form.desc" style="width:50%;"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-      </div>
-    </el-dialog>
-    <!-- 弹框 -->
   </section>
 </template>
 
@@ -82,28 +53,6 @@ import { getUserList } from "@/api/home/api";
 export default {
   data() {
     return {
-      options: [
-        {
-          value: "选项1",
-          label: "杭州"
-        },
-        {
-          value: "选项2",
-          label: "北京"
-        },
-        {
-          value: "选项3",
-          label: "上海"
-        },
-        {
-          value: "选项4",
-          label: "郑州"
-        },
-        {
-          value: "选项5",
-          label: "湖南"
-        }
-      ],
       form: {
         name: "",
         age: "",
@@ -111,10 +60,9 @@ export default {
         desc: "",
         city: ""
       },
-      dialogFormVisible: false,
-      formLabelWidth: "60px",
       tableData: [],
-      total: 1
+      total: 1,
+      page: 1
     };
   },
   created() {
@@ -149,11 +97,14 @@ export default {
         type: "success"
       });
     },
-    getList() {
-      getUserList({}, { action: "list" }).then(response => {
+    getList(page = 1) {
+      getUserList({}, { action: "list", page: page }).then(response => {
         this.tableData = response.data.data;
         this.total = response.data.total;
       });
+    },
+    changePage(page) {
+      this.getList(page);
     }
   }
 };
