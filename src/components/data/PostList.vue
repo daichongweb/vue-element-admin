@@ -4,10 +4,10 @@
     <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
       <el-form :inline="true" :model="form">
         <el-form-item>
-          <el-input v-model="form.name" placeholder="姓名"></el-input>
+          <el-input v-model="name" placeholder="姓名"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary">查询</el-button>
+          <el-button type="primary" @click="search">查询</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { getUserList, delUser } from "@/api/home/api";
+import { getUserList, delUser } from "@/api/form/api";
 
 export default {
   data() {
@@ -62,7 +62,8 @@ export default {
       },
       tableData: [],
       total: 1,
-      page: 1
+      page: 1,
+      name: ""
     };
   },
   created() {
@@ -98,14 +99,19 @@ export default {
           });
         });
     },
-    getList(page = 1) {
-      getUserList({}, { action: "list", page: page }).then(response => {
-        this.tableData = response.data.data;
-        this.total = response.data.total;
-      });
+    getList(page = 1, name = "") {
+      getUserList({}, { action: "list", page: page, name: name }).then(
+        response => {
+          this.tableData = response.data.data;
+          this.total = response.data.total;
+        }
+      );
     },
     changePage(page) {
       this.getList(page);
+    },
+    search() {
+      this.getList(this.page, this.name);
     }
   }
 };
