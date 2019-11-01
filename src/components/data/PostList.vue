@@ -29,8 +29,8 @@
       <el-table-column prop="city" label="城市" width="180"></el-table-column>
       <el-table-column prop="address" label="地址"></el-table-column>
       <el-table-column label="操作" width="180">
-        <template>
-          <el-button size="mini" type="danger" @click="del()">删除</el-button>
+        <template slot-scope="scope">
+          <el-button size="mini" type="danger" @click="del(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { getUserList } from "@/api/home/api";
+import { getUserList, delUser } from "@/api/home/api";
 
 export default {
   data() {
@@ -69,19 +69,26 @@ export default {
     this.getList();
   },
   methods: {
-    edit() {
-      this.dialogFormVisible = true;
-    },
-    del() {
+    del(id) {
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       })
         .then(() => {
-          this.$message({
-            type: "success",
-            message: "删除成功!"
+          delUser({}, { action: "delUser", id: id }).then(response => {
+            if (response.code == 200) {
+              this.$message({
+                type: "success",
+                message: "删除成功!"
+              });
+              this.getList();
+            } else {
+              this.$message({
+                type: "error",
+                message: "删除失败!"
+              });
+            }
           });
         })
         .catch(() => {
@@ -90,12 +97,6 @@ export default {
             message: "已取消删除"
           });
         });
-    },
-    add() {
-      this.$message({
-        message: "添加成功",
-        type: "success"
-      });
     },
     getList(page = 1) {
       getUserList({}, { action: "list", page: page }).then(response => {

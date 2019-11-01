@@ -7,3 +7,11 @@ export function getUserList(params, data = {}) {
         data: data
     })
 }
+export function delUser(params, data = {}) {
+    return request({
+        url: '/index.php',
+        method: 'post',
+        params: params,
+        data: data
+    })
+}
