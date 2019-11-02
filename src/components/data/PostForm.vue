@@ -26,7 +26,7 @@
       ></el-date-picker>
     </el-form-item>
     <el-form-item label="年龄" required prop="age">
-      <el-input-number v-model="form.age" controls-position="right" :min="1" :max="10"></el-input-number>
+      <el-input-number v-model="form.age" controls-position="right" :min="1" :max="100"></el-input-number>
     </el-form-item>
     <el-form-item label="地址" required prop="address">
       <el-col :span="6">

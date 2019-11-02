@@ -4,7 +4,7 @@ import { Message, MessageBox } from 'element-ui'
 
 // 创建axios实例
 const service = axios.create({
-    baseURL: 'http://www.test.local', // api的base_url
+    baseURL: 'http://vue.daichongweb.cn', // api的base_url
     timeout: 15000,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' }
 })

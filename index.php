@@ -24,7 +24,7 @@ header('Access-Control-Allow-Headers: Content-Type,Content-Length,Accept-Encodin
 
 $servername = "localhost";
 $username = "root";
-$password = "root";
+$password = "daichongweb";
 
 // 创建连接
 $conn = mysqli_connect($servername, $username, $password, 'test');
@@ -59,7 +59,7 @@ if ($data) {
             $where .= " and name like '%$name%'";
         }
         $result = $conn->query("select * from user where {$where} limit $limit,$page_size");
-        while ($data[] = $result->fetch_assoc()) { }
+        while ($data[] = $result->fetch_assoc()) {}
         $total = $conn->query("select count(*) as num from user where {$where}")->fetch_assoc()['num'];
 
         $data = array_values($data);
@@ -71,7 +71,7 @@ if ($data) {
 
         ajaxs(200, 'success', [
             'total' => (int) $total,
-            'data' => array_values($data)
+            'data' => array_values($data),
         ]);
     } else if ($action == 'delUser') {
         $id = $data['id'];
