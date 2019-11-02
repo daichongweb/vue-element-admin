@@ -1,6 +1,6 @@
 # vue-element-admin
 
-> vue-element-admin
+> 后台管理骨架，适合新手学习和快速搭建轻量级的后台管理系统。
 
 ## Build Setup
 
@@ -24,3 +24,6 @@ www.daichongweb.com
 
 # doc
 暂未补充，敬请期待...
+
+# info
+后续会一直更新...
