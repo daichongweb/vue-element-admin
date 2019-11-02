@@ -17,5 +17,8 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
-# doc
+# blog
 www.daichongweb.com
+
+# doc
+暂未补充，敬请期待...
