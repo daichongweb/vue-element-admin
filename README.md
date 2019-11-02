@@ -18,7 +18,7 @@ npm run build
 npm run build --report
 ```
 # Demo
-vue.daichongweb.cn
+http://vue.daichongweb.cn
 # Blog
 www.daichongweb.com
 
