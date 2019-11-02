@@ -17,7 +17,9 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
-# blog
+# Demo
+vue.daichongweb.cn
+# Blog
 www.daichongweb.com
 
 # doc
