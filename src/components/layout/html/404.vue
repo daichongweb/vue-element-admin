@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     handleGoMain() {
-      this.$router.push({ path: "/Home" });
+      this.$router.push({ path: "/Table" });
     }
   }
 };

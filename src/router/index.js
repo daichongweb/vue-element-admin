@@ -16,10 +16,10 @@ export default new Router({
   routes: [
     {
       path: '/Home',
-      name: 'Home',
+      name: 'Table',
       component: Home,
       children: [
-        { path: '/Home', component: () => import('@/components/used/Table'), name: 'Table' },
+        { path: '/Table', component: () => import('@/components/used/Table'), name: 'Table' },
         { path: '/Form', component: () => import('@/components/used/Form'), name: 'Form' },
         { path: '/Calendar', component: () => import('@/components/used/Calendar'), name: 'Calendar' },
         { path: '/PostForm', component: () => import('@/components/data/PostForm'), name: 'PostForm' },

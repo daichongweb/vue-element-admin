@@ -30,7 +30,7 @@ export default {
   methods: {
     loginIn() {
       sessionStorage.setItem("user", "daichongweb");
-      this.$router.push({ path: "/Home" });
+      this.$router.push({ path: "/Table" });
     }
   }
 };
