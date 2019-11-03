@@ -1,6 +1,6 @@
 import axios from 'axios'
 import Qs from 'qs'
-import { Message, MessageBox } from 'element-ui'
+import { Message, MessageBox, Loading } from 'element-ui'
 
 // 创建axios实例
 const service = axios.create({
@@ -9,11 +9,22 @@ const service = axios.create({
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' }
 })
 
+let loadingObj;
+function LoadingFun() {
+    loadingObj = Loading.service({
+        lock: true,
+        text: '',
+        spinner: '',
+        background: 'rgba(0, 0, 0, 0)'
+    });
+}
+
 // request拦截器
 service.interceptors.request.use(config => {
     // if (store.getters.token) {
     //     config.headers['Authorization'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
     // }
+    LoadingFun();
     config.data = Qs.stringify(config.data);
     return config;
 }, error => {
@@ -25,6 +36,7 @@ service.interceptors.request.use(config => {
 // respone拦截器
 service.interceptors.response.use(
     response => {
+        loadingObj.close();
         /**
         * code为非200是抛错 可结合自己业务进行修改
         */

@@ -7,7 +7,7 @@
       <el-aside width="250px">
         <left></left>
       </el-aside>
-      <el-main>
+      <el-main class="main-load">
         <breadcrumb-text></breadcrumb-text>
         <router-view></router-view>
       </el-main>
