@@ -1,7 +1,10 @@
 <template>
   <el-header>
-    <el-col :span="3">
+    <el-col :span="3" style="width:250px;">
       <div class="grid-content bg-purple logo">ADMIN</div>
+    </el-col>
+    <el-col :span="1" style="text-indent: 10px;font-size: 25px;">
+      <i class="el-icon-s-fold" @click="menuChange"></i>
     </el-col>
     <el-col :span="2" style="float:right">
       <el-dropdown>
@@ -31,7 +34,6 @@ export default {
   },
   methods: {
     loginOut() {
-      console.log(1)
       this.$confirm("您确定要退出吗?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -39,6 +41,8 @@ export default {
       }).then(() => {
         this.$router.push({ path: "/Login" });
       });
+    },
+    menuChange() {
     }
   }
 };
