@@ -1,7 +1,12 @@
 
 <template>
   <el-aside width="250px" style="background-color: rgba(238,241,246, 1)">
-    <el-menu :router="true" :default-active="this.$route.name" :unique-opened="true">
+    <el-menu
+      :router="true"
+      :default-active="this.$route.name"
+      :unique-opened="true"
+      @select="selectMenu"
+    >
       <template v-for="(item, index) in navList">
         <el-submenu :index="item.name" :key="index">
           <template slot="title">
@@ -18,6 +23,7 @@
 </template>
 
 <script>
+import Qs from "qs";
 export default {
   data() {
     return {
@@ -59,6 +65,10 @@ export default {
       ]
     };
   },
-  methods: {}
+  methods: {
+    selectMenu(index, indexPath) {
+      window.sessionStorage.setItem("menuPath", Qs.stringify(indexPath));
+    }
+  }
 };
 </script>
