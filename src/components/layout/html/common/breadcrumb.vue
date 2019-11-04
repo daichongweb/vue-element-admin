@@ -1,8 +1,8 @@
 <template>
   <el-breadcrumb class="breadcrumb" separator="/">
     <el-breadcrumb-item :to="{ path: '/Home' }">首页</el-breadcrumb-item>
-    <el-breadcrumb-item>{{first}}</el-breadcrumb-item>
-    <el-breadcrumb-item>{{last}}</el-breadcrumb-item>
+    <el-breadcrumb-item v-if="first">{{first}}</el-breadcrumb-item>
+    <el-breadcrumb-item v-if="last">{{last}}</el-breadcrumb-item>
   </el-breadcrumb>
 </template>
 <script>
