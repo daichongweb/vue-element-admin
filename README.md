@@ -21,11 +21,3 @@ npm run build --report
 http://vue.daichongweb.cn
 # Blog
 www.daichongweb.com
-
-# doc
-暂未补充，敬请期待...
-
-# Info
-最近很多人喷我，我并不知道为什么，我做这个只是为了单纯的证明一下自己，别人能做的我也可以做。
-
-感谢！后续会一直更新...
